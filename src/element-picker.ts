@@ -46,8 +46,6 @@ export default class ElementPicker {
     return true;
   }
 
-
-
   stop() {
     this.active = false;
     if (this.options?.onStop) {
@@ -68,6 +66,13 @@ export default class ElementPicker {
     }
   }
 
+  cancel() {
+    if (this.options?.onCancel) {
+      this.options.onCancel();
+    }
+    this.stop();
+  }
+
   private handleMouseMove = (event: MouseEvent) => {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
@@ -85,10 +90,7 @@ export default class ElementPicker {
     let preventDefault = true;
     if(event.key == 'Escape')
     {
-      if (this.options?.onCancel) {
-        this.options.onCancel();
-      }
-      this.stop();
+      this.cancel();
     }
     else if(event.key === 'ArrowUp'){
       this.updateTarget(this.target?.parentElement);
