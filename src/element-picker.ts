@@ -1,12 +1,14 @@
 import ElementOverlay from "./element-overlay";
 import { getElementBounds, ElementOverlayOptions } from "./utils";
 
-type ElementCallback<T> = (el: HTMLElement) => T;
+type ElementCallback<T> = (el?: HTMLElement) => T;
 type ElementPickerOptions = {
   parentElement?: Node;
   useShadowDOM?: boolean;
   onClick?: ElementCallback<void>;
   onHover?: ElementCallback<void>;
+  onCancel?: ElementCallback<void>;
+  onStop?: ElementCallback<void>;
   elementFilter?: ElementCallback<boolean | HTMLElement>;
 };
 
@@ -48,6 +50,10 @@ export default class ElementPicker {
 
   stop() {
     this.active = false;
+    if (this.options?.onStop) {
+      this.options.onStop();
+    }
+
     this.options = undefined;
     document.removeEventListener("mousemove", this.handleMouseMove, true);
     document.removeEventListener("click", this.handleClick, true);
@@ -79,6 +85,9 @@ export default class ElementPicker {
     let preventDefault = true;
     if(event.key == 'Escape')
     {
+      if (this.options?.onCancel) {
+        this.options.onCancel();
+      }
       this.stop();
     }
     else if(event.key === 'ArrowUp'){
