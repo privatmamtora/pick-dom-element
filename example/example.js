@@ -1,5 +1,43 @@
 import { ElementPicker } from "pick-dom-element";
 
+let picker;
+
+async function selectElement() {
+  return new Promise((resolve) => {
+    picker = new ElementPicker({
+      style: {
+        background: "rgba(153, 235, 255, 0.5)",
+        borderColor: "yellow"
+      },
+    });
+    picker.start({
+      onClick: (el) => {
+        console.log('Click');
+        resolve(el);
+        picker.stop();
+      },
+      onCancel: () => {
+        console.log('Cancel');
+        resolve();
+      },
+      onStop: () => {
+        console.log('Stop');
+        resolve();
+      }
+    })
+  });
+}
+
+async function main2() {
+  const start = async () => {
+    const el = await selectElement();
+    console.log("Done", el);
+
+  };
+  const startButton = document.getElementById("getElement");
+  startButton.addEventListener("click", start);
+}
+
 function main() {
   const status = document.getElementById("status");
   const startButton = document.getElementById("start");
@@ -40,6 +78,9 @@ function main() {
         picker.stop();
         startButton.disabled = false;
       },
+      onCancel: () => {
+        startButton.disabled = false;
+      },
       elementFilter: (el) => {
         if (onlyEmphasis) {
           return ['I', 'B'].includes(el.tagName);
@@ -57,3 +98,4 @@ function main() {
 }
 
 document.addEventListener("DOMContentLoaded", main);
+document.addEventListener("DOMContentLoaded", main2);
