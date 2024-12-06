@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite --open"
   },
-  "author": "Harry Marr",
+  "author": "privatmamtora <privat.mamtora@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "vite": "^6.0.3"

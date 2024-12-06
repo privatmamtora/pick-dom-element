@@ -1,11 +1,11 @@
 {
   "name": "pick-dom-element",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Interactively pick elements in the DOM",
-  "author": "Harry Marr",
+  "author": "privatmamtora <privat.mamtora@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/hmarr/pick-dom-element",
-  "repository": "github:hmarr/pick-dom-element",
+  "homepage": "https://github.com/privatmamtora/pick-dom-element",
+  "repository": "github:privatmamtora/pick-dom-element",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
