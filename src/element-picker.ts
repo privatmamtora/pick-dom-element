@@ -1,5 +1,5 @@
 import ElementOverlay from "./element-overlay";
-import { getElementBounds } from "./utils";
+import { getElementBounds, ElementOverlayOptions } from "./utils";
 
 type ElementCallback<T> = (el: HTMLElement) => T;
 type ElementPickerOptions = {
@@ -7,7 +7,7 @@ type ElementPickerOptions = {
   useShadowDOM?: boolean;
   onClick?: ElementCallback<void>;
   onHover?: ElementCallback<void>;
-  elementFilter?: ElementCallback<boolean>;
+  elementFilter?: ElementCallback<boolean | HTMLElement>;
 };
 
 export default class ElementPicker {
@@ -19,9 +19,9 @@ export default class ElementPicker {
   private mouseY?: number;
   private tickReq?: number;
 
-  constructor() {
+  constructor(overlayOptions?: ElementOverlayOptions) {
     this.active = false;
-    this.overlay = new ElementOverlay();
+    this.overlay = new ElementOverlay(overlayOptions ?? {});
   }
 
   start(options: ElementPickerOptions): boolean {
@@ -126,10 +126,18 @@ export default class ElementPicker {
     // If we have an element filter and the new target doesn't match,
     // clear out the target
     if (this.options?.elementFilter) {
-      if (!this.options.elementFilter(newTarget)) {
+      const filterResult = this.options.elementFilter(newTarget)
+      if (filterResult === false) {
         this.target = undefined;
         this.overlay.setBounds({ x: 0, y: 0, width: 0, height: 0 });
         return;
+      }
+      // If the filter returns an element, use that element as new target
+      else if (typeof filterResult !== "boolean") {
+        if (filterResult === this.target) {
+          return;
+        }
+        newTarget = filterResult
       }
     }
 
