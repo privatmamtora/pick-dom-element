@@ -1,6 +1,6 @@
 {
   "name": "@privatmamtora/pick-dom-element",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Interactively pick elements in the DOM",
   "author": "privatmamtora <privat.mamtora@gmail.com>",
   "license": "MIT",
