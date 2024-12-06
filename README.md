@@ -1,6 +1,6 @@
 # pick-dom-element
 
-[![npm version](https://badge.fury.io/js/pick-dom-element.svg)](https://badge.fury.io/js/pick-dom-element)
+[![npm version](https://badge.fury.io/js/@privatmamtora%2Fpick-dom-element.svg)](https://badge.fury.io/js/@privatmamtora%2Fpick-dom-element)
 
 A JavaScript library (written in TypeScript) for interactively picking DOM elements.
 
